@@ -21,8 +21,11 @@ class Trikampis
   		}
   		bool arExist(int a,int b,int c)
   		{
-  			//?????????????????
-  			return true;
+  			if( this->a + this->b > this->c || this->a + this->c > this->b || this->b + this->c > this->a)
+  			{
+				return true;
+			}
+			else return false;
 		}
 		~Trikampis()
 		{
