@@ -1,98 +1,73 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <list>
+#include <iterator>
+#include <stdio.h>
 
 using namespace std;
 
-class Vertex
-{
-private:
-int x, y;
+class Moksleivis {
+    private:
+      int* pazymiai;
+      int pazymiuKiekis;
+    public:
+      Moksleivis(int* pazymiai, int pazymiuKiekis) {
+        this->pazymiai = pazymiai;
+        this->pazymiuKiekis = pazymiuKiekis;
+      } 
 
-public:
-Vertex(int x, int y) : x(x), y(y) {}
+      bool arGausPagyrimoRasta() {
+          int pazymiuSuma = 0;
+          for (int i = 0; i < pazymiuKiekis; i++) {
+            if (pazymiai[i] < 8) {
+              return false;
+            } else {
+               pazymiuSuma += pazymiai[i]; 
+            }
+          }
+          double vidurkis = ((double)pazymiuSuma / pazymiuKiekis);
+          return vidurkis > 8.5;
+      } 
 
-double getDistance(Vertex *anotherVertex)
-{
-double distance = sqrt(pow(x - anotherVertex->x, 2) + pow(y - anotherVertex->y, 2));
-return distance;
-}
 };
 
-class Triangle
-{
-private:
-double ab, bc, ca;
+list<Moksleivis*> duomenuNuskaitymas();
 
-public:
-Triangle(double ab, double bc, double ca) : ab(ab), bc(bc), ca(ca) {}
+int main() {
+  list<Moksleivis*> moksleiviai = duomenuNuskaitymas();
 
-bool checkIfObtuse()
-{
-vector<double> sides{ab, bc, ca};
-sort(sides.begin(), sides.end());
-return pow(sides[2], 2) > pow(sides[0], 2) + pow(sides[1], 2);
-}
-};
+  list<Moksleivis*>::iterator moksleivis;
 
-class Vertices
-{
-private:
-Vertex *a, *b, *c;
-double ab, bc, ca;
-
-public:
-bool existTriangle()
-{
-ab = a->getDistance(b);
-bc = b->getDistance(c);
-ca = c->getDistance(a);
-
-return ((ab + bc > ca) && (ab + ca > bc) && (ca + bc > ab));
+  int mokiniuKiekisGausPagyrimoRasta = 0;
+  for (moksleivis = moksleiviai.begin(); moksleivis != moksleiviai.end(); moksleivis++) {
+      if ((*moksleivis)->arGausPagyrimoRasta()) {
+        mokiniuKiekisGausPagyrimoRasta++;
+      }
+  }
+  if (mokiniuKiekisGausPagyrimoRasta == 0) {
+    cout << "visi looseriai";
+  } else if (mokiniuKiekisGausPagyrimoRasta % 10 == 0 || (mokiniuKiekisGausPagyrimoRasta < 20 && mokiniuKiekisGausPagyrimoRasta > 9)) {
+    printf("Pagyrimo raštą gaus %d moksleivių", mokiniuKiekisGausPagyrimoRasta);  
+  } else if (mokiniuKiekisGausPagyrimoRasta == 1 || (mokiniuKiekisGausPagyrimoRasta-1) % 10 == 0) {
+    printf("Pagyrimo raštą gaus %d moksleivis", mokiniuKiekisGausPagyrimoRasta);  
+  } else if (mokiniuKiekisGausPagyrimoRasta) {
+    printf("Pagyrimo raštą gaus %d moksleiviai", mokiniuKiekisGausPagyrimoRasta);  
+  }
 }
 
-Triangle *newTriangle()
-{
-return new Triangle(ab, bc, ca);
-}
-
-//pateiktos trikampiu vir�uniu koordinates x1,x2,x3,y1,y2,y3
-void setABC()
-{
-int x1, x2, x3, y1, y2, y3;
-cin >> x1 >> x2 >> x3 >> y1 >> y2 >> y3;
-this->a = new Vertex(x1, y1);
-this->c = new Vertex(x2, y2);
-this->b = new Vertex(x3, y3);
-}
-};
-
-int main()
-{
-int n = 0;
-cin >> n;
-list<Vertices *> vertices;
-for (int i = 0; i < n; i++)
-{
-Vertices *newVertices = new Vertices();
-newVertices->setABC();
-vertices.push_back(newVertices);
-}
-int obtuseCount = 0;
-bool triangleExists = false;
-//Apskaiciuokite buku trikampiu kieki.
-for (Vertices *vert : vertices)
-{
-if (vert->existTriangle())
-{
-triangleExists = true;
-Triangle *triangle = vert->newTriangle();
-if (triangle->checkIfObtuse())
-obtuseCount++;
-}
-}
-if (triangleExists)
-cout << obtuseCount << endl;
-else
-cout << "NERA";
-
-return 0;
+list<Moksleivis*> duomenuNuskaitymas() {
+  list <Moksleivis*> moksleiviai;
+  int n;
+  cin >> n;
+  for (int i = 0; i < n; i++) {
+    int k;
+    cin >> k;
+    int* pazymiai = new int[k];
+    for (int j = 0; j < k; j++) {
+        int pazymys;
+        cin >> pazymys;
+        pazymiai[j] = pazymys;
+    }
+    moksleiviai.push_back(new Moksleivis(pazymiai, k));
+  }
+  return moksleiviai;
 }
