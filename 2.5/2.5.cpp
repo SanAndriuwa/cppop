@@ -71,9 +71,10 @@ int main()
 		}
 	}
 
-	cout<<k<<" studentas/ai gaus stipendija"<<endl;
+	cout<<k<<" studentas/ai gaus stipendija."<<endl;
 	cout<<"Geriausiai mokosi ";
 	studentas[imax]->printName();
+ 	cout<<".";
 	delete[] studentas;
 	return 0;
 }
