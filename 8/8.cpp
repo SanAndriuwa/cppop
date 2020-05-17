@@ -14,13 +14,17 @@ class Apskritimas
 		}
 		bool arKertasi()
 		{
-			double x2, y2, r2, d;
-			x2=y2=r2=6;
-    		d=sqrt(pow(x-6,2)+pow(y-6,2));
-    		if ((r+6)>=d)
-        		return true;
-    		else
-        		return false;
+			double x2=6;
+			double y2=6;
+			double r2=6;
+			double sum = r + r2;
+			double distance = (double)sqrt(pow(x2-x,2)+pow(y2-y,2));
+    		double diff = abs(r - r2);
+    		if( diff > distance ) return false;
+    		if( diff == distance ) return false;
+    		if( distance < sum ) return true; 
+    		if( distance == sum ) return false;
+    		return false;
 		}
 };
 int main()
