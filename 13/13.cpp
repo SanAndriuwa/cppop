@@ -38,13 +38,18 @@ int main()
 	}
 	for(int i=0;i<n-1;i++)
 	{
+		bool radau=false;
 		for(int j=i+1;j<n;j++)
 		{
 			if(grybautojas[i]->taskai()==grybautojas[j]->taskai())
 			{
-				grybautojas[i]=new Grybautojas("Diskvalifikuotas",0,0,0);
 				grybautojas[j]=new Grybautojas("Diskvalifikuotas",0,0,0);
+				radau=true;
 			}
+		}
+		if(radau)
+		{
+			grybautojas[i]=new Grybautojas("Diskvalifikuotas",0,0,0);
 		}
 	}
 	int maxt=grybautojas[0]->taskai();
