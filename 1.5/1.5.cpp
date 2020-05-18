@@ -12,21 +12,19 @@ class Staciakampis
   }
   long P(int a, int b)
   {
-    return (this->a+this->b)*2;
+    return (a+b)*2;
   }
   double stacSaps(int a,int b)
   {
-    double pi=355/113;
-    int r;
-    if(a>=b)
+    double pi=355./113.;
+    double r;
+    if(a>b)
     {
-      r=this->b/2;
+      r=(double)b/2;
     }
-    else r=this->a/2;
-    return (double)r*r*pi;
+    else r=(double)a/2;
+    return r*r*pi;
   }
-  ~Staciakampis()
-  {};
   };
 int main()
 {
@@ -38,7 +36,7 @@ int main()
     int a,b;
     cin>>a>>b;
     Staciakampis ab(a,b);
-    if(ab.P(a,b)>static_cast<double>(ab.stacSaps(a,b)))
+    if(ab.P(a,b)>(ab.stacSaps(a,b)))
     {
       Count++;
     }

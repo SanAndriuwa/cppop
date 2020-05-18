@@ -43,17 +43,42 @@ int main()
 		{
 			if(grybautojas[i]->taskai()==grybautojas[j]->taskai())
 			{
+				if(grybautojas[i]->printName()=="Diskvalifikuotas")
+				{
+				}
+				else 
+				{
 				grybautojas[j]=new Grybautojas("Diskvalifikuotas",0,0,0);
-				radau=true;
-			}
+				radau=true;	
+				}
+			}				
 		}
 		if(radau)
 		{
 			grybautojas[i]=new Grybautojas("Diskvalifikuotas",0,0,0);
 		}
 	}
-	int maxt=grybautojas[0]->taskai();
-	int imax=0;
+	int maxt;
+	int imax;
+	int k=0;
+	for(int i=0;i<n;i++)
+	{
+		if(grybautojas[i]->printName()=="Diskvalifikuotas")
+		{
+			
+		}
+		else
+		{
+			maxt=grybautojas[i]->taskai();
+			imax=i;
+			k++;
+		}
+	}
+	if(k==0)
+	{
+		maxt=grybautojas[0]->taskai();
+		imax=0;
+	}
 	for(int i=0;i<n;i++)
 	{
 		if(maxt<grybautojas[i]->taskai())
