@@ -35,7 +35,7 @@ int main()
 	double min=0;
 	int n;
 	cin>>n;
-	Trikampis** trikampis= new Trikampis*[n];
+	Trikampis* trikampis= new Trikampis[n];
 	for(int i=0;i<n;i++)
 	{
 		int x1,y1,x2,y2,x3,y3;
